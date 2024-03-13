@@ -33,7 +33,7 @@ class CepServiceProvider extends ServiceProvider
         $this->loadRoutesFrom(__DIR__.'/Routes/api.php');
 
         // Se você tiver migrations
-        $this->loadMigrationsFrom(__DIR__.'/database/migrations');
+        $this->loadMigrationsFrom(__DIR__.'/database/Migrations');
 
     }
 }

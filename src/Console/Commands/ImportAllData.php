@@ -15,7 +15,7 @@ class ImportAllData extends Command
     public function handle()
     {
         // Supondo que 'packages' esteja na raiz do seu projeto Laravel
-        $basePath = base_path('packages/samuelrochac/laravel-brasil-ceps/src/database/SQL');
+        $basePath = base_path('vendor/samuelrochac/laravel-brasil-ceps/src/Database/SQL');
 
         $this->importSql($basePath . '/states.sql', 'States');
         $this->importSql($basePath . '/cities.sql', 'Cities');
