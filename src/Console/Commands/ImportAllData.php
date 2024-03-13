@@ -24,6 +24,8 @@ class ImportAllData extends Command
 
     protected function importSql($path, $type)
     {
+        $this->info('Importing ' . $type . ' from ' . $path . '...');
+
         if (File::exists($path)) {
             $sql = File::get($path);
             DB::unprepared($sql);
