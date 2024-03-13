@@ -16,6 +16,10 @@ class CepServiceProvider extends ServiceProvider
         $this->app->bind('cepservice', function ($app) {
             return new CepService();
         });
+
+        $this->commands([
+            \Samuelrochac\LaravelBrasilCeps\Console\Commands\ImportAllData::class,
+        ]);
     }
 
     /**
