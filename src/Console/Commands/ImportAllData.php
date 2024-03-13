@@ -14,10 +14,13 @@ class ImportAllData extends Command
 
     public function handle()
     {
-        $this->importSql(database_path('SQL/states.sql'), 'States');
-        $this->importSql(database_path('SQL/cities.sql'), 'Cities');
-        $this->importSql(database_path('SQL/districts.sql'), 'Districts');
-        $this->importSql(database_path('SQL/addresses.sql'), 'Addresses');
+        // Supondo que 'packages' esteja na raiz do seu projeto Laravel
+        $basePath = base_path('packages/samuelrochac/laravel-brasil-ceps/src/database/SQL');
+
+        $this->importSql($basePath . '/states.sql', 'States');
+        $this->importSql($basePath . '/cities.sql', 'Cities');
+        $this->importSql($basePath . '/districts.sql', 'Districts');
+        $this->importSql($basePath . '/addresses.sql', 'Addresses');
 
         $this->info('All data has been imported successfully!');
     }
