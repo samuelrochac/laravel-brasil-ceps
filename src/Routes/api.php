@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Samuelrochac\LaravelBrasilCeps\Controllers\Http\CepsController;
+use Samuelrochac\LaravelBrasilCeps\Http\Controllers\CepsController;
 
 /*
 |--------------------------------------------------------------------------
