@@ -13,7 +13,9 @@ class CepServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        
+        $this->app->bind('cepservice', function ($app) {
+            return new CepService();
+        });
     }
 
     /**

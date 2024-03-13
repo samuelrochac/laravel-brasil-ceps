@@ -1,6 +1,6 @@
 <?php
 
-namespace Console\Commands;
+namespace Samuelrochac\LaravelBrasilCeps\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;

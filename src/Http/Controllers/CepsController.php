@@ -1,6 +1,6 @@
 <?php
 
-namespace Samuelrochac\LaravelBrasilCeps\Controllers;
+namespace Samuelrochac\LaravelBrasilCeps\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
