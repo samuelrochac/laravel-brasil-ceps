@@ -16,10 +16,25 @@ class ImportAllData extends Command
     {
 
         // delete data from tables
-        DB::table('addresses')->delete();
-        DB::table('districts')->delete();
-        DB::table('cities')->delete();
-        DB::table('states')->delete();
+        // check if address table exists
+        if (Schema::hasTable('addresses')) {
+            DB::table('addresses')->delete();
+        }
+        
+        // check if district table exists
+        if (Schema::hasTable('districts')) {
+            DB::table('districts')->delete();
+        }
+
+        // check if city table exists
+        if (Schema::hasTable('cities')) {
+            DB::table('cities')->delete();
+        }
+
+        // check if state table exists
+        if (Schema::hasTable('states')) {
+            DB::table('states')->delete();
+        }
 
         // delete migrations
         DB::table('migrations')->where('migration', 'like', '2024_01_01_100000_create_states_table')->delete();
