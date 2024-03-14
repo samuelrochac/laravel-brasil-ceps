@@ -15,11 +15,20 @@ class ImportAllData extends Command
     public function handle()
     {
 
-        // clear all data
-        DB::table('addresses')->truncate();
-        DB::table('districts')->truncate();
-        DB::table('cities')->truncate();
-        DB::table('states')->truncate();
+        // delete data from tables
+        DB::table('addresses')->delete();
+        DB::table('districts')->delete();
+        DB::table('cities')->delete();
+        DB::table('states')->delete();
+
+        // delete migrations
+        DB::table('migrations')->where('migration', 'like', '2024_01_01_100000_create_states_table')->delete();
+        DB::table('migrations')->where('migration', 'like', '2024_01_01_100001_create_cities_table')->delete();
+        DB::table('migrations')->where('migration', 'like', '2024_01_01_100002_create_districts_table')->delete();
+        DB::table('migrations')->where('migration', 'like', '2024_01_01_100003_create_addresses_table')->delete();
+
+        // run migrations
+        $this->call('migrate');
 
         // Supondo que 'packages' esteja na raiz do seu projeto Laravel
         $basePath = base_path('vendor/samuelrochac/laravel-brasil-ceps/src/Database/SQL');
