@@ -18,11 +18,11 @@ class ImportAllData extends Command
 
         // truncate tables
         DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+
         DB::table('addresses')->truncate();
         DB::table('districts')->truncate();
         DB::table('cities')->truncate();
         DB::table('states')->truncate();
-        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
 
         // delete data from tables
         // check if address table exists
@@ -44,6 +44,8 @@ class ImportAllData extends Command
         if (Schema::hasTable('states')) {
             DB::table('states')->delete();
         }
+
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
 
         // delete migrations
         DB::table('migrations')->where('migration', 'like', '2024_01_01_100000_create_states_table')->delete();
