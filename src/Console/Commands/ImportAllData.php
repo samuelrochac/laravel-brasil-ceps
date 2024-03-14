@@ -5,6 +5,7 @@ namespace Samuelrochac\LaravelBrasilCeps\Console\Commands;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Schema;
 
 class ImportAllData extends Command
 {
