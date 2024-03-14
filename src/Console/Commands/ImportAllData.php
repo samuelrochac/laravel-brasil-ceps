@@ -19,29 +19,28 @@ class ImportAllData extends Command
         // truncate tables
         DB::statement('SET FOREIGN_KEY_CHECKS=0;');
 
-        DB::table('addresses')->truncate();
-        DB::table('districts')->truncate();
-        DB::table('cities')->truncate();
-        DB::table('states')->truncate();
-
         // delete data from tables
         // check if address table exists
         if (Schema::hasTable('addresses')) {
+            DB::table('addresses')->truncate();
             DB::table('addresses')->delete();
         }
         
         // check if district table exists
         if (Schema::hasTable('districts')) {
+            DB::table('districts')->truncate();
             DB::table('districts')->delete();
         }
 
         // check if city table exists
         if (Schema::hasTable('cities')) {
+            DB::table('cities')->truncate();
             DB::table('cities')->delete();
         }
 
         // check if state table exists
         if (Schema::hasTable('states')) {
+            DB::table('states')->truncate();
             DB::table('states')->delete();
         }
 
