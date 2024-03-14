@@ -86,10 +86,23 @@ class ImportAllData extends Command
     protected function importSql($path, $type)
     {
         $this->info('Importing ' . $type . ' from ' . $path . '...');
-
+    
         if (File::exists($path)) {
-            $sql = File::get($path);
-            DB::unprepared($sql);
+            $file = new \SplFileObject($path);
+            $sql = '';
+            while (!$file->eof()) {
+                $line = trim($file->fgets());
+                if ($line == '' || strpos($line, '--') === 0) {
+                    // Ignora linhas vazias e comentários
+                    continue;
+                }
+                $sql .= $line;
+                if (substr($line, -1) == ';') {
+                    // Quando encontrar um ponto e vírgula, considera como o fim de uma instrução e executa
+                    DB::unprepared($sql);
+                    $sql = ''; // Reseta a variável SQL para a próxima instrução
+                }
+            }
             $this->info($type . ' imported successfully.');
         } else {
             $this->error($type . ' SQL file does not exist.');
