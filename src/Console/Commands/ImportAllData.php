@@ -19,21 +19,26 @@ class ImportAllData extends Command
         // delete data from tables
         // check if address table exists
         if (Schema::hasTable('addresses')) {
+            // trucante table
+            DB::table('addresses')->truncate();
             DB::table('addresses')->delete();
         }
         
         // check if district table exists
         if (Schema::hasTable('districts')) {
+            DB::table('districts')->truncate();
             DB::table('districts')->delete();
         }
 
         // check if city table exists
         if (Schema::hasTable('cities')) {
+            DB::table('cities')->truncate();
             DB::table('cities')->delete();
         }
 
         // check if state table exists
         if (Schema::hasTable('states')) {
+            DB::table('states')->truncate();
             DB::table('states')->delete();
         }
 
