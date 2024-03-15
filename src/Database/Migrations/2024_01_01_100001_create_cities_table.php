@@ -13,8 +13,9 @@ class CreateCitiesTable extends Migration
      */
     public function up()
     {
+        $prefix = config('brasil_ceps.db_prefix') ?? 'brasil_zip_codes_';
 
-        Schema::create('cities', function (Blueprint $table) {
+        Schema::create($prefix.'cities', function (Blueprint $table) {
             
             $table->id();
             $table->unsignedBigInteger('state_id');

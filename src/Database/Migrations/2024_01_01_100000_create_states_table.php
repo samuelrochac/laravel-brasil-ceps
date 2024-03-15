@@ -14,7 +14,9 @@ class CreateStatesTable extends Migration
     public function up()
     {
 
-        Schema::create('states', function (Blueprint $table) {
+        $prefix = config('brasil_ceps.db_prefix') ?? 'brasil_zip_codes_';
+
+        Schema::create($prefix.'states', function (Blueprint $table) {
             $table->id();
             $table->string('name', 95)->unique();
             $table->string('initials', 10)->unique(); 
