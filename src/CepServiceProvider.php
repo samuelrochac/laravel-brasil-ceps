@@ -40,7 +40,7 @@ class CepServiceProvider extends ServiceProvider
         );
 
         $this->publishes([
-            __DIR__.'/config/configs.php' => config_path('brasil_ceps.php'),
+            __DIR__.'/Config/configs.php' => config_path('brasil_ceps.php'),
         ], 'config');
 
     }
