@@ -5,6 +5,7 @@ namespace Samuelrochac\LaravelBrasilCeps\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
+use Samuelrochac\LaravelBrasilCeps\Http\Resources\ZipCodeResource;
 use Samuelrochac\LaravelBrasilCeps\Models\Address;
 
 class CepsController extends Controller
@@ -19,12 +20,17 @@ class CepsController extends Controller
     {
         $zipcode = $this->prepareZipcode($zipcode);
 
-        $search = Address::where('postal_code', $zipcode)->first();
+        $search = Address::with(['district', 'city', 'state'])->where('postal_code', $zipcode)->first();
 
         if (!$search) {
             return response()->json(['message' => 'CEP não encontrado'], 404);
         }
 
-        return response()->json($search, 200);
+        try{
+            $result = new ZipCodeResource($search);
+            return response()->json($result, 200);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Erro ao processar a requisição'], 500);
+        }
     }
 }
