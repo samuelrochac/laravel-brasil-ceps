@@ -1,19 +1,82 @@
-# laravel-brasil-ceps
-Um pacote Laravel para consulta local de CEPs brasileiros, eliminando a dependência de APIs externas e acelerando buscas por endereço.
 
-Este pacote Laravel oferece uma solução completa e eficiente para acessar e consultar uma lista abrangente de Códigos de Endereçamento Postal (CEPs) do Brasil diretamente dentro do seu projeto Laravel. Com o objetivo de maximizar a performance e a confiabilidade, o Laravel Brasil CEP elimina a necessidade de dependências externas ou chamadas a APIs de terceiros para a obtenção desses dados críticos.
+# Laravel Brasil CEPs: Consulta e Gerenciamento de CEPs
 
-# Principais funcionalidades:
+O **Laravel Brasil CEPs** é um pacote desenvolvido para facilitar a consulta e o gerenciamento de CEPs (Códigos de Endereçamento Postal) brasileiros em aplicações Laravel, oferecendo uma integração rápida e eficiente com dados de endereçamento postal do Brasil. Este pacote permite a importação de dados referentes a estados, cidades, distritos e endereços, além de disponibilizar uma API para consulta de CEPs de forma prática e ágil.
 
-- Banco de Dados Completo de CEPs: Inclui um banco de dados abrangente com todos os CEPs brasileiros, atualizado até a data mais recente, garantindo a precisão e a relevância dos dados.
-  
-- Consulta Rápida e Eficiente: Permite consultas rápidas por CEP, retornando informações detalhadas como rua, bairro, cidade, e estado, otimizando a experiência do usuário final.
-  
-- Endpoint Dedicado: Integra-se perfeitamente ao Laravel, oferecendo um endpoint específico para consultas de CEP, facilitando a integração com sistemas existentes ou novos.
-  
-- Fácil Instalação e Configuração: Configuração simplificada e documentação clara para garantir uma integração suave e rápida ao seu projeto Laravel.
+## Recursos do Pacote
 
-# Ideal para:
-Projetos que necessitam de uma solução interna para consulta de CEPs, evitando latências e instabilidades de APIs de terceiros.
-Aplicações que operam com grande volume de consultas de endereço e precisam de respostas rápidas e confiáveis.
-Desenvolvedores buscando otimizar a performance de aplicações Laravel ao reduzir dependências externas.
+- Importação automática de dados para estados, cidades, distritos e endereços brasileiros.
+- Configuração flexível, incluindo personalização de prefixos de tabelas.
+- Endpoint pronto para consulta de informações por CEP.
+- Facilidade de integração com projetos Laravel existentes.
+
+## Como Instalar o Laravel Brasil CEPs
+
+### Instalação via Composer
+
+Inicie a instalação do pacote através do Composer executando o seguinte comando no terminal do seu projeto Laravel:
+
+```bash
+composer require samuelrochac/laravel-brasil-ceps
+```
+
+### Configuração do ServiceProvider
+
+Após a conclusão da instalação, adicione o `CepServiceProvider` ao array de providers no arquivo `config/app.php`:
+
+```php
+'providers' => [
+    // Outros Service Providers...
+    Samuelrochac\LaravelBrasilCeps\CepServiceProvider::class,
+],
+```
+
+### Publicação das Configurações
+
+Utilize o comando Artisan abaixo para publicar o arquivo de configuração do pacote no seu projeto Laravel. Isso permitirá que você customize as configurações conforme a necessidade do seu projeto, como ajustar o prefixo das tabelas no banco de dados:
+
+```bash
+php artisan vendor:publish --provider="Samuelrochac\LaravelBrasilCeps\CepServiceProvider"
+```
+
+Após a publicação, o arquivo `brasil_ceps.php` estará disponível no diretório `config`.
+
+### Personalização do Prefixo das Tabelas
+
+Para modificar o prefixo padrão das tabelas de banco de dados, edite o arquivo `config/brasil_ceps.php`:
+
+```php
+<?php
+
+return [
+    'db_prefix' => 'bzc_', // Altere conforme necessário
+];
+```
+
+## Importação de Dados
+
+Com a configuração concluída, importe os dados de CEPs para o seu banco de dados utilizando o comando Artisan:
+
+```bash
+php artisan import:zipcodes
+```
+
+## Testando o Endpoint de Consulta de CEP
+
+Para verificar o funcionamento do pacote e a consulta de informações por CEP, acesse:
+
+```
+http://seu_dominio.com/api/cep/01423010/json
+```
+
+Altere `seu_dominio.com` para o domínio ou IP onde sua aplicação Laravel está rodando.
+
+## Contribuições e Suporte
+
+Contribuições são sempre bem-vindas. Para contribuir, faça um fork do repositório, crie um branch para sua feature ou correção, e submeta um pull request.
+
+Para reportar bugs ou solicitar novas funcionalidades, por favor, abra uma issue no GitHub.
+
+## Licença
+
+Este pacote é distribuído sob a licença MIT. Para mais informações, consulte o arquivo [LICENSE](LICENSE.md) incluído com o código fonte.
