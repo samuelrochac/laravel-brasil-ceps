@@ -19,28 +19,43 @@ class ImportAllData extends Command
         // truncate tables
         DB::statement('SET FOREIGN_KEY_CHECKS=0;');
 
-        // delete data from tables
         // check if address table exists
         if (Schema::hasTable('addresses')) {
             DB::table('addresses')->truncate();
-            DB::table('addresses')->delete();
         }
         
         // check if district table exists
         if (Schema::hasTable('districts')) {
             DB::table('districts')->truncate();
-            DB::table('districts')->delete();
         }
 
         // check if city table exists
         if (Schema::hasTable('cities')) {
             DB::table('cities')->truncate();
-            DB::table('cities')->delete();
         }
 
         // check if state table exists
         if (Schema::hasTable('states')) {
             DB::table('states')->truncate();
+        }
+
+        // check if address table exists
+        if (Schema::hasTable('addresses')) {
+            DB::table('addresses')->delete();
+        }
+        
+        // check if district table exists
+        if (Schema::hasTable('districts')) {
+            DB::table('districts')->delete();
+        }
+
+        // check if city table exists
+        if (Schema::hasTable('cities')) {
+            DB::table('cities')->delete();
+        }
+
+        // check if state table exists
+        if (Schema::hasTable('states')) {
             DB::table('states')->delete();
         }
 
@@ -52,8 +67,22 @@ class ImportAllData extends Command
         DB::table('migrations')->where('migration', 'like', '2024_01_01_100002_create_districts_table')->delete();
         DB::table('migrations')->where('migration', 'like', '2024_01_01_100003_create_addresses_table')->delete();
 
-        // run migrations
-        $this->call('migrate');
+        // run migrate especific to create tables
+        if (Schema::hasTable('states')) {
+            $this->call('migrate', ['--path' => 'vendor/samuelrochac/laravel-brasil-ceps/src/Database/Migrations/2024_01_01_100000_create_states_table.php']);
+        }
+
+        if (Schema::hasTable('cities')) {
+            $this->call('migrate', ['--path' => 'vendor/samuelrochac/laravel-brasil-ceps/src/Database/Migrations/2024_01_01_100001_create_cities_table.php']);
+        }
+
+        if (Schema::hasTable('districts')) {
+            $this->call('migrate', ['--path' => 'vendor/samuelrochac/laravel-brasil-ceps/src/Database/Migrations/2024_01_01_100002_create_districts_table.php']);
+        }
+
+        if (Schema::hasTable('addresses')) {
+            $this->call('migrate', ['--path' => 'vendor/samuelrochac/laravel-brasil-ceps/src/Database/Migrations/2024_01_01_100003_create_addresses_table.php']);
+        }
 
         // Supondo que 'packages' esteja na raiz do seu projeto Laravel
         $basePath = base_path('vendor/samuelrochac/laravel-brasil-ceps/src/Database/SQL');
