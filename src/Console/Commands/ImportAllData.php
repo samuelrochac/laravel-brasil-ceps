@@ -15,6 +15,7 @@ class ImportAllData extends Command
 
     public function handle()
     {
+        $prefix = config('brasil_ceps.db_prefix') ?? 'brasil_zip_codes_';
         
         $this->clearData();
 
