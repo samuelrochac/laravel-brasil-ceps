@@ -32,6 +32,8 @@ class CreateStatesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('states');
+        $prefix = config('brasil_ceps.db_prefix') ?? 'brasil_zip_codes_';
+
+        Schema::dropIfExists($prefix.'states');
     }
 }

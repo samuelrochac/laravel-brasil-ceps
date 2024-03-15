@@ -24,7 +24,7 @@ class CreateDistrictsTable extends Migration
             $table->string('slug', 95);
             $table->timestamps();
 
-            $table->foreign('city_id')->references('id')->on('cities')->onDelete('cascade');
+            $table->foreign('city_id')->references('id')->on($prefix.'cities')->onDelete('cascade');
         });
 
     }
@@ -36,6 +36,8 @@ class CreateDistrictsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('districts');
+        $prefix = config('brasil_ceps.db_prefix') ?? 'brasil_zip_codes_';
+
+        Schema::dropIfExists($prefix.'districts');
     }
 }

@@ -22,7 +22,7 @@ class CreateCitiesTable extends Migration
             $table->string('name', 95);
             $table->string('slug', 95);
             $table->timestamps();
-            $table->foreign('state_id')->references('id')->on('states')->onDelete('cascade');
+            $table->foreign('state_id')->references('id')->on($prefix.'states')->onDelete('cascade');
 
         });
 
@@ -35,6 +35,8 @@ class CreateCitiesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('cities');
+        $prefix = config('brasil_ceps.db_prefix') ?? 'brasil_zip_codes_';
+
+        Schema::dropIfExists($prefix.'cities');
     }
 }

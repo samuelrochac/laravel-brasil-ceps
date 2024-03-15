@@ -29,8 +29,8 @@ class CreateAddressesTable extends Migration
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign('city_id')->references('id')->on('cities')->onDelete('cascade');
-            $table->foreign('district_id')->references('id')->on('districts')->onDelete('set null');
+            $table->foreign('city_id')->references('id')->on($prefix.'cities')->onDelete('cascade');
+            $table->foreign('district_id')->references('id')->on($prefix.'districts')->onDelete('set null');
 
         });
 
@@ -43,6 +43,8 @@ class CreateAddressesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('addresses');
+        $prefix = config('brasil_ceps.db_prefix') ?? 'brasil_zip_codes_';
+
+        Schema::dropIfExists($prefix.'addresses');
     }
 }
