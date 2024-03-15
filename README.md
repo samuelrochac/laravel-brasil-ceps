@@ -1,3 +1,4 @@
+[![Latest Stable Version](http://poser.pugx.org/samuelrochac/laravel-brasil-ceps/v)](https://packagist.org/packages/samuelrochac/laravel-brasil-ceps) [![Total Downloads](http://poser.pugx.org/samuelrochac/laravel-brasil-ceps/downloads)](https://packagist.org/packages/samuelrochac/laravel-brasil-ceps) [![Latest Unstable Version](http://poser.pugx.org/samuelrochac/laravel-brasil-ceps/v/unstable)](https://packagist.org/packages/samuelrochac/laravel-brasil-ceps) [![License](http://poser.pugx.org/samuelrochac/laravel-brasil-ceps/license)](https://packagist.org/packages/samuelrochac/laravel-brasil-ceps) [![PHP Version Require](http://poser.pugx.org/samuelrochac/laravel-brasil-ceps/require/php)](https://packagist.org/packages/samuelrochac/laravel-brasil-ceps)
 
 # Laravel Brasil CEPs: Consulta e Gerenciamento de CEPs
 
