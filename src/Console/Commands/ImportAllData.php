@@ -19,19 +19,19 @@ class ImportAllData extends Command
         $this->clearData();
 
         // run migrate especific to create tables
-        if (!Schema::hastable($prefix.'states')) {
+        if (!Schema::hasTable($prefix.'states')) {
             $this->call('migrate', ['--path' => 'vendor/samuelrochac/laravel-brasil-ceps/src/Database/Migrations/2024_01_01_100000_create_states_table.php']);
         }
 
-        if (!Schema::hastable($prefix.'cities')) {
+        if (!Schema::hasTable($prefix.'cities')) {
             $this->call('migrate', ['--path' => 'vendor/samuelrochac/laravel-brasil-ceps/src/Database/Migrations/2024_01_01_100001_create_cities_table.php']);
         }
 
-        if (!Schema::hastable($prefix.'districts')) {
+        if (!Schema::hasTable($prefix.'districts')) {
             $this->call('migrate', ['--path' => 'vendor/samuelrochac/laravel-brasil-ceps/src/Database/Migrations/2024_01_01_100002_create_districts_table.php']);
         }
 
-        if (!Schema::hastable($prefix.'addresses')) {
+        if (!Schema::hasTable($prefix.'addresses')) {
             $this->call('migrate', ['--path' => 'vendor/samuelrochac/laravel-brasil-ceps/src/Database/Migrations/2024_01_01_100003_create_addresses_table.php']);
         }
 
@@ -109,7 +109,7 @@ class ImportAllData extends Command
         DB::statement('SET FOREIGN_KEY_CHECKS=0;');
 
         // check if address table exists
-        if (Schema::hastable($prefix.'addresses')) {
+        if (Schema::hasTable($prefix.'addresses')) {
             try{
                 $truncate = DB::table($prefix.'addresses')->truncate();
                 $this->info('Addresses table truncated successfully!');
@@ -119,7 +119,7 @@ class ImportAllData extends Command
         }
         
         // check if district table exists
-        if (Schema::hastable($prefix.'districts')) {
+        if (Schema::hasTable($prefix.'districts')) {
             try{
                 $truncate = DB::table($prefix.'districts')->truncate();
                 $this->info('Districts table truncated successfully!');
@@ -129,7 +129,7 @@ class ImportAllData extends Command
         }
 
         // check if city table exists
-        if (Schema::hastable($prefix.'cities')) {
+        if (Schema::hasTable($prefix.'cities')) {
             try{
                 $truncate = DB::table($prefix.'cities')->truncate();
                 $this->info('Cities table truncated successfully!');
@@ -139,7 +139,7 @@ class ImportAllData extends Command
         }
 
         // check if state table exists
-        if (Schema::hastable($prefix.'states')) {
+        if (Schema::hasTable($prefix.'states')) {
             try{
                 $truncate = DB::table($prefix.'states')->truncate();
                 $this->info('States table truncated successfully!');
@@ -149,7 +149,7 @@ class ImportAllData extends Command
         }
 
         // check if address table exists
-        if (Schema::hastable($prefix.'addresses')) {
+        if (Schema::hasTable($prefix.'addresses')) {
             try{
                 $delete = DB::table($prefix.'addresses')->delete();
                 $this->info('Addresses table deleted successfully!');
@@ -159,7 +159,7 @@ class ImportAllData extends Command
         }
         
         // check if district table exists
-        if (Schema::hastable($prefix.'districts')) {
+        if (Schema::hasTable($prefix.'districts')) {
             try{
                 $delete = DB::table($prefix.'districts')->delete();
                 $this->info('Districts table deleted successfully!');
@@ -169,7 +169,7 @@ class ImportAllData extends Command
         }
 
         // check if city table exists
-        if (Schema::hastable($prefix.'cities')) {
+        if (Schema::hasTable($prefix.'cities')) {
             try{
                 $delete = DB::table($prefix.'cities')->delete();
                 $this->info('Cities table deleted successfully!');
@@ -179,7 +179,7 @@ class ImportAllData extends Command
         }
 
         // check if state table exists
-        if (Schema::hastable($prefix.'states')) {
+        if (Schema::hasTable($prefix.'states')) {
             try{
                 $delete = DB::table($prefix.'states')->delete();
                 $this->info('States table deleted successfully!');
@@ -191,10 +191,10 @@ class ImportAllData extends Command
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
 
         // delete migrations
-        DB::table($prefix.'migrations')->where('migration', 'like', '2024_01_01_100000_create_states_table')->delete();
-        DB::table($prefix.'migrations')->where('migration', 'like', '2024_01_01_100001_create_cities_table')->delete();
-        DB::table($prefix.'migrations')->where('migration', 'like', '2024_01_01_100002_create_districts_table')->delete();
-        DB::table($prefix.'migrations')->where('migration', 'like', '2024_01_01_100003_create_addresses_table')->delete();
+        DB::table('migrations')->where('migration', 'like', '2024_01_01_100000_create_states_table')->delete();
+        DB::table('migrations')->where('migration', 'like', '2024_01_01_100001_create_cities_table')->delete();
+        DB::table('migrations')->where('migration', 'like', '2024_01_01_100002_create_districts_table')->delete();
+        DB::table('migrations')->where('migration', 'like', '2024_01_01_100003_create_addresses_table')->delete();
 
     }
 
