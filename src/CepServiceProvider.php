@@ -35,5 +35,13 @@ class CepServiceProvider extends ServiceProvider
         // Se você tiver migrations
         $this->loadMigrationsFrom(__DIR__.'/Database/Migrations');
 
+        $this->mergeConfigFrom(
+            __DIR__.'/Config/configs.php', 'brasil_ceps'
+        );
+
+        $this->publishes([
+            __DIR__.'/config/configs.php' => config_path('brasil_ceps.php'),
+        ], 'config');
+
     }
 }
