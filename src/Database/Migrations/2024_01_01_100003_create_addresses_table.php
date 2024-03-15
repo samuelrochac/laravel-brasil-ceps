@@ -21,7 +21,7 @@ class CreateAddressesTable extends Migration
             $table->unsignedBigInteger('city_id');
             $table->unsignedBigInteger('district_id')->nullable();
             $table->string('address', 255)->nullable();
-            $table->string('postal_code', 15)->unique()->index();
+            $table->string('postal_code', 15)->index();
             $table->string('latitude', 20)->nullable();
             $table->string('longitude', 20)->nullable();
             $table->unsignedInteger('ddd')->nullable();
