@@ -16,71 +16,22 @@ class ImportAllData extends Command
     public function handle()
     {
 
-        // truncate tables
-        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
-
-        // check if address table exists
-        if (Schema::hasTable('addresses')) {
-            DB::table('addresses')->truncate();
-        }
-        
-        // check if district table exists
-        if (Schema::hasTable('districts')) {
-            DB::table('districts')->truncate();
-        }
-
-        // check if city table exists
-        if (Schema::hasTable('cities')) {
-            DB::table('cities')->truncate();
-        }
-
-        // check if state table exists
-        if (Schema::hasTable('states')) {
-            DB::table('states')->truncate();
-        }
-
-        // check if address table exists
-        if (Schema::hasTable('addresses')) {
-            DB::table('addresses')->delete();
-        }
-        
-        // check if district table exists
-        if (Schema::hasTable('districts')) {
-            DB::table('districts')->delete();
-        }
-
-        // check if city table exists
-        if (Schema::hasTable('cities')) {
-            DB::table('cities')->delete();
-        }
-
-        // check if state table exists
-        if (Schema::hasTable('states')) {
-            DB::table('states')->delete();
-        }
-
-        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
-
-        // delete migrations
-        DB::table('migrations')->where('migration', 'like', '2024_01_01_100000_create_states_table')->delete();
-        DB::table('migrations')->where('migration', 'like', '2024_01_01_100001_create_cities_table')->delete();
-        DB::table('migrations')->where('migration', 'like', '2024_01_01_100002_create_districts_table')->delete();
-        DB::table('migrations')->where('migration', 'like', '2024_01_01_100003_create_addresses_table')->delete();
+        $this->clearData();
 
         // run migrate especific to create tables
-        if (Schema::hasTable('states')) {
+        if (!Schema::hasTable('states')) {
             $this->call('migrate', ['--path' => 'vendor/samuelrochac/laravel-brasil-ceps/src/Database/Migrations/2024_01_01_100000_create_states_table.php']);
         }
 
-        if (Schema::hasTable('cities')) {
+        if (!Schema::hasTable('cities')) {
             $this->call('migrate', ['--path' => 'vendor/samuelrochac/laravel-brasil-ceps/src/Database/Migrations/2024_01_01_100001_create_cities_table.php']);
         }
 
-        if (Schema::hasTable('districts')) {
+        if (!Schema::hasTable('districts')) {
             $this->call('migrate', ['--path' => 'vendor/samuelrochac/laravel-brasil-ceps/src/Database/Migrations/2024_01_01_100002_create_districts_table.php']);
         }
 
-        if (Schema::hasTable('addresses')) {
+        if (!Schema::hasTable('addresses')) {
             $this->call('migrate', ['--path' => 'vendor/samuelrochac/laravel-brasil-ceps/src/Database/Migrations/2024_01_01_100003_create_addresses_table.php']);
         }
 
@@ -137,4 +88,99 @@ class ImportAllData extends Command
             $this->error($type . ' SQL file does not exist.');
         }
     }
+
+    public function clearData(){
+        // truncate tables
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+
+        // check if address table exists
+        if (Schema::hasTable('addresses')) {
+            try{
+                $truncate = DB::table('addresses')->truncate();
+                $this->info('Addresses table truncated successfully!');
+            }catch(\Exception $e){
+                $this->error('Error on truncate addresses table: ' . $e->getMessage());
+            }
+        }
+        
+        // check if district table exists
+        if (Schema::hasTable('districts')) {
+            try{
+                $truncate = DB::table('districts')->truncate();
+                $this->info('Districts table truncated successfully!');
+            }catch(\Exception $e){
+                $this->error('Error on truncate districts table: ' . $e->getMessage());
+            }
+        }
+
+        // check if city table exists
+        if (Schema::hasTable('cities')) {
+            try{
+                $truncate = DB::table('cities')->truncate();
+                $this->info('Cities table truncated successfully!');
+            }catch(\Exception $e){
+                $this->error('Error on truncate cities table: ' . $e->getMessage());
+            }
+        }
+
+        // check if state table exists
+        if (Schema::hasTable('states')) {
+            try{
+                $truncate = DB::table('states')->truncate();
+                $this->info('States table truncated successfully!');
+            }catch(\Exception $e){
+                $this->error('Error on truncate states table: ' . $e->getMessage());
+            }
+        }
+
+        // check if address table exists
+        if (Schema::hasTable('addresses')) {
+            try{
+                $delete = DB::table('addresses')->delete();
+                $this->info('Addresses table deleted successfully!');
+            }catch(\Exception $e){
+                $this->error('Error on delete addresses table: ' . $e->getMessage());
+            }
+        }
+        
+        // check if district table exists
+        if (Schema::hasTable('districts')) {
+            try{
+                $delete = DB::table('districts')->delete();
+                $this->info('Districts table deleted successfully!');
+            }catch(\Exception $e){
+                $this->error('Error on delete districts table: ' . $e->getMessage());
+            }
+        }
+
+        // check if city table exists
+        if (Schema::hasTable('cities')) {
+            try{
+                $delete = DB::table('cities')->delete();
+                $this->info('Cities table deleted successfully!');
+            }catch(\Exception $e){
+                $this->error('Error on delete cities table: ' . $e->getMessage());
+            }
+        }
+
+        // check if state table exists
+        if (Schema::hasTable('states')) {
+            try{
+                $delete = DB::table('states')->delete();
+                $this->info('States table deleted successfully!');
+            }catch(\Exception $e){
+                $this->error('Error on delete states table: ' . $e->getMessage());
+            }
+        }
+
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+
+        // delete migrations
+        DB::table('migrations')->where('migration', 'like', '2024_01_01_100000_create_states_table')->delete();
+        DB::table('migrations')->where('migration', 'like', '2024_01_01_100001_create_cities_table')->delete();
+        DB::table('migrations')->where('migration', 'like', '2024_01_01_100002_create_districts_table')->delete();
+        DB::table('migrations')->where('migration', 'like', '2024_01_01_100003_create_addresses_table')->delete();
+
+    }
+
 }
