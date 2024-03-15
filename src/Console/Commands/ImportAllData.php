@@ -66,12 +66,12 @@ class ImportAllData extends Command
     protected function importSql($path, $type)
     {
         $prefix = config('brasil_ceps.db_prefix') ?? 'brasil_zip_codes_';
-        
+
         $replaces = [
-            'states' => config('brasil_ceps.db_prefix') . 'states',
-            'cities' => config('brasil_ceps.db_prefix') . 'cities',
-            'districts' => config('brasil_ceps.db_prefix') . 'districts',
-            'addresses' => config('brasil_ceps.db_prefix') . 'addresses',
+            '`states`' => "`{$prefix}states`",
+            '`cities`' => "`{$prefix}cities`",
+            '`districts`' => "`{$prefix}districts`",
+            '`addresses`' => "`{$prefix}addresses`",
         ];
 
         $this->info('Importing ' . $type. '...');
